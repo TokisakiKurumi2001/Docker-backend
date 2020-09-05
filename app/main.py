@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 import sys
 import os
@@ -44,8 +45,10 @@ def read_image(image: str, crs: int):
     input_text = text_recognition(image)
     lon, lat = text_to_coordinate(input_text, crs)
 
-    return 'https://www.google.com/maps/@?api=1&map_action=map&center=' + \
-        str(lat) + ',' + str(lon) + '&zoom=15'
+    command = 'rm /app/tmp/*.jpg'
+    process = subprocess.Popen(command, shell=True).wait()
+
+    return {'lon': lon, 'lat': lat}
 
 
 # * Correctly extract file name
