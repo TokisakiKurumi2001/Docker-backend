@@ -1,20 +1,19 @@
 # Docker-backend
-A docker repo for building some necessities for backend
+A docker repo for building some necessities for backend.
+
+# IMPORTANT
+- Go to your Firebase's project [service accounts](https://console.firebase.google.com/project/_/settings/serviceaccounts/adminsdk).
+- Click Generate New Private Key.
+- Save as `serviceAccountKey.json` in the root folder.
+### Not tested with duplicate files on Firebase.
 
 # How to use
-## Build Docker image
+## Run with Docker Compose
 ```
-docker build -t <name_tag> .
+docker-compose build && docker-compose up -d
 ```
-This will take very long on installing torch.
-
-## Execute
-```
-docker run -d -p 8080:80 <name_tag>
-```
-Go to `localhost:8080/` to see result.
+Server is available at `localhost:5000/`.
 
 ## Extract latitude, longitude
-Navigate to `localhost:8080/predict/pic_1.jpg?crs=9210` for example.
-All images are saved in root for the mean time.
-Also available at `https://obscure-retreat-69161.herokuapp.com` but there is a problem with memory quota.
+```localhost:5000/predict/<image>?crs=<crs>```
+All images are taken directly from Firebase Storage.
